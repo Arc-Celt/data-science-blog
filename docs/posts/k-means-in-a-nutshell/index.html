@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Archer Liu">
-<meta name="dcterms.date" content="2025-01-17">
+<meta name="dcterms.date" content="2025-01-18">
 
 <title>K-means clustering in a nutshell – Archer’s Data Science Blog</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -92,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Archer Liu</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
@@ -137,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">January 17, 2025</p>
+        <p class="date">January 18, 2025</p>
       </div>
     </div>
     
@@ -163,7 +197,7 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Netflix’s intelligent recommendations</figcaption>
 </figure>
 </div>
-<p>These smart recommendations aren’t because your phones are eavesdropping on you…well, maybe they do. But! They’re actually powered by amazing data science techniques like <strong>K-means clustering</strong>!</p>
+<p>These smart recommendations aren’t because your devices are eavesdropping on you…well, maybe they do. But! They’re actually powered by amazing data science techniques like <strong>K-means clustering</strong>!</p>
 <p>In this tutorial, we’ll introduce the magic of K-means clustering in a nutshell, exploring how it works and how it can help you play around with everyday data you’re interested in, from analyzing social media trends, to enhancing your learning projects. (Or just for fun!)</p>
 <section id="so-what-is-k-means-clustering" class="level2">
 <h2 class="anchored" data-anchor-id="so-what-is-k-means-clustering">So, what is K-means clustering?</h2>
@@ -175,18 +209,156 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Different animals can be clustered based on their features, and probably, different memes!</figcaption>
 </figure>
 </div>
-<p>The <strong>K-means clustering</strong> is one of the most used clustering algorithms. The <strong>“K”</strong> stands for the number of groups you choose. <strong>“Means”</strong> comes from finding the average (or center) of each group. So basically, <strong>K-means clustering</strong> groups data into K clusters, making sure each item is as close as possible to the center of its group. The process keeps repeating until all the groups are as well-organized as possible. Easy peasy right?</p>
+<p>The <strong>K-means clustering</strong> is one of the most used clustering algorithms. The <strong>“K”</strong> stands for the number of groups you choose. <strong>“Means”</strong> comes from finding the average (or center) of each group. So basically, <strong>K-means clustering</strong> groups data into K clusters by assigning each point to the closest center, using straight-line distance between the point and the center. Then, it recalculate the center of each group. The new center is the average of all the points in that group. The process keeps repeating until all the centers and groups are as stable as possible. Easy peasy right?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="k-means_clustering_procedures.png" class="img-fluid figure-img"></p>
 <figcaption>K-means clustering precedures</figcaption>
 </figure>
 </div>
+<p>However, there’s one more challenge: choosing the right <strong>K</strong>. If you select too few groups, the groups may be too broad; if you pick too many, the groups may become overly specific. So, how do we find the best number? This is where the <strong>Elbow Method</strong> comes to the rescue!</p>
+<p>The Elbow Method helps find the best number of clusters by looking at how the <strong>Sum of Squared Errors</strong> (SSE, a measure of how far the data points are from their group centers) changes as K increases. When K is small, increasing it reduces the error a lot. But after a certain point, increasing K doesn’t reduce the error much. The K value where this happens will be the sweet spot.</p>
+<p>But there’s a trade-off. If we pick a really large K, we might get too many groups. This could break the data into tiny, unhelpful segments, making it harder to find useful patterns. So, it’s important to choose the right K, so that we can have enough groups to be useful, but not so many that they become meaningless. We’ll explore more about this in the coding section.</p>
+</section>
+<section id="time-to-code" class="level2">
+<h2 class="anchored" data-anchor-id="time-to-code">Time to code!</h2>
+<p>Now that we’ve gotten the hang of the core concept of K-means, what better way to really get it than giving it a go ourselves?</p>
+<p>We’ll be using some handy Python packages: <code>pandas</code>, <code>matplotlib</code>, and <code>scikit-learn</code>. Make sure you have them installed! If not, you can easily install them via the command line using <code>pip</code>:</p>
+<pre class="{bash}"><code>pip install pandas matplotlib scikit-learn</code></pre>
+<p>In this practice, we’ll work with a dataset of mall customers (Sudheer, 2022). You can download the dataset <a href="https://www.kaggle.com/datasets/nelakurthisudheer/mall-customer-segmentation/data">here</a>. This dataset contains some interesting facts about the customers, including their <code>CustomerID</code>, <code>Gender</code>, <code>Age</code>, <code>Annual Income (k$)</code>, and <code>Spending Score (1-100)</code> (a score based on customer behavior and purchasing habits). As the data scientist for the company, your task today is to identify distinct customer profiles via <em>K-means clustering</em>, so that the mall can make wiser decisions about which products to offer and which ads to display for the right customers.</p>
+<p>After downloading the dataset <code>Mall_Customers.csv</code> into the current directory, we’ll load the data and clean it up a bit, such as removing any irrelevant properties for clustering.</p>
+<div id="b8c38c3e" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data and print some head rows</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"Mall_Customers.csv"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data.head(<span class="dv">5</span>))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the CustomerID column and print some head rows</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>data_drop_ID <span class="op">=</span> data.drop(<span class="st">"CustomerID"</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data_drop_ID.head(<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   CustomerID  Gender  Age  Annual Income (k$)  Spending Score (1-100)
+0           1    Male   19                  15                      39
+1           2    Male   21                  15                      81
+2           3  Female   20                  16                       6
+3           4  Female   23                  16                      77
+4           5  Female   31                  17                      40
+   Gender  Age  Annual Income (k$)  Spending Score (1-100)
+0    Male   19                  15                      39
+1    Male   21                  15                      81
+2  Female   20                  16                       6
+3  Female   23                  16                      77
+4  Female   31                  17                      40</code></pre>
+</div>
+</div>
+<p>It looks like our data still needs a little makeover. Some columns contain text, while others have numeric values with different ranges. This can make it tricky when calculating distances for clustering. To resolve this, we’ll need to encode the text data and scale the numeric data so that everything is on the same level before clustering.</p>
+<div id="6682c31d" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder, StandardScaler</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>label_encoder <span class="op">=</span> LabelEncoder()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Encode the 'Gender' column, turning "Male" and "Female" into numbers 1 and 0</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>data_drop_ID[<span class="st">'Gender'</span>] <span class="op">=</span> label_encoder.fit_transform(data_drop_ID[<span class="st">'Gender'</span>])</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale the features so they're on the same scale</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>data_scaled <span class="op">=</span> scaler.fit_transform(data_drop_ID[data_drop_ID.columns])</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># The cleaned dataset</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>final_data <span class="op">=</span> pd.DataFrame(data_scaled, columns<span class="op">=</span>data_drop_ID.columns)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(final_data.head(<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Gender       Age  Annual Income (k$)  Spending Score (1-100)
+0  1.128152 -1.424569           -1.738999               -0.434801
+1  1.128152 -1.281035           -1.738999                1.195704
+2 -0.886405 -1.352802           -1.700830               -1.715913
+3 -0.886405 -1.137502           -1.700830                1.040418
+4 -0.886405 -0.563369           -1.662660               -0.395980</code></pre>
+</div>
+</div>
+<p>Finally, We can start with K-means! Keep the basic steps in mind as we loop through different K values and use the elbow method to find the best K. Let’s get clustering!</p>
+<div id="b59415e7" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the data into a format suitable for clustering</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> final_data.values</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a list to store the Sum of Squared Errors for each K value</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>sumDs <span class="op">=</span> []</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Try different values of K</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">20</span>):</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>i)  <span class="co"># Create a KMeans model with K clusters</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    kmeans.fit(X)  <span class="co"># Fit the model to our data, grouping the data points into K clusters</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    sumDs.append(kmeans.inertia_)  <span class="co"># Add the SSE for the current K to the list</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Elbow plot to find a reasonable K</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">20</span>), sumDs)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Elbow Plot for Optimal K'</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Number of Clusters (K)'</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Sum of Squared Errors (SSE)'</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.png" width="593" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You’ll probably see that <code>K=20</code> gives the smallest SSE, but remember, too many clusters might make the results meaningless! So instead of picking the K that gives the smallest error, we might go with <code>K=6</code>, where the error still decreases but the rate of improvement slows down a lot.</p>
+<p>And here it is, the moment of truth. Let’s see how our clustering results look with <code>K=6</code> in 3D!</p>
+<div id="de8ffee5" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit KMeans with K=6</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>segmentation <span class="op">=</span> kmeans.fit_predict(final_data)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>final_data[<span class="st">'Segmentation'</span>] <span class="op">=</span> segmentation</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 3D plot</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> ax.scatter(</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    final_data[<span class="st">'Age'</span>], </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    final_data[<span class="st">'Annual Income (k$)'</span>], </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    final_data[<span class="st">'Spending Score (1-100)'</span>], </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    c<span class="op">=</span>final_data[<span class="st">'Segmentation'</span>], </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">'viridis'</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Age'</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Annual Income (k$)'</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">'Spending Score (1-100)'</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Mall Customer Segmentation with 6 clusters'</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>plt.colorbar(scatter)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" width="695" height="639" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="wrap-up" class="level2">
+<h2 class="anchored" data-anchor-id="wrap-up">Wrap up!</h2>
+<p>And there you go! We’ve just built our very first K-means clustering project! Pretty neat, right?</p>
+<p>Let’s quickly recap what we’ve learned. K-means clustering is a powerful technique for grouping similar data points and performing segmentation. We’ve covered the fundamentals, including the steps involved in K-means clustering and how the Elbow Method can help us determine the optimal number of clusters.</p>
+<p>However, there are several important aspects of K-means clustering that we haven’t covered. For instance, K-means can be easily affected by outliers (abnormal data points with extreme values), which may lead to poor clustering. Exploring ways to address the outliers can help improve results. Additionally, there are ways other than the elbow method that can help check how good our clusters are, such as Silhouette Coefficient, which checks how similar items are within a group.</p>
+<p>This is just the first steps into the world of unsupervised learning, and there’s so much more to explore! Don’t hesitate to apply what you’ve learned to your own ideas! And of course, stay tuned for more exciting sharings!</p>
+<p><img src="kitten_bye.jpeg" alt="See ya in the next blog!" width="300"></p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <ul>
-<li>Wikipedia contributors. 2025. “Cluster Analysis.” Wikipedia. Retrieved (https://en.wikipedia.org/wiki/Cluster_analysis).</li>
+<li>Wikipedia contributors. 2025. “Cluster Analysis.” Wikipedia. Retrieved from https://en.wikipedia.org/wiki/Cluster_analysis.</li>
+<li>Nelakurthi Sudheer. 2022. Mall Customer Segmentation, Version 1. Retrieved from https://www.kaggle.com/datasets/nelakurthisudheer/mall-customer-segmentation/data.</li>
+<li>Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., &amp; Duchesnay, E. (2011). Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12, 2825–2830.</li>
+<li>The pandas development team. (2020). pandas-dev/pandas: Pandas (Version latest). Zenodo. https://doi.org/10.5281/zenodo.3509134</li>
+<li>Hunter, J. D. (2007). Matplotlib: A 2D graphics environment. Computing in Science &amp; Engineering, 9(3), 90–95. https://doi.org/10.1109/MCSE.2007.55</li>
 </ul>
 
 
