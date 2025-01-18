@@ -1,2 +1,3 @@
-# k-means-in-a-nutshell
-Learn K-means clustering with this easy-to-follow tutorial!
+# data-science-blog
+
+Archer's data science blog! Stay tuned and keep learning!
