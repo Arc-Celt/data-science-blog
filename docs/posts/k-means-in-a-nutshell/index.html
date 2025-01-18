@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-title column-body">
       <h1 class="title">K-means clustering in a nutshell</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
+                <div class="quarto-category">tutorial</div>
                 <div class="quarto-category">code</div>
                 <div class="quarto-category">analysis</div>
               </div>
@@ -227,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre class="{bash}"><code>pip install pandas matplotlib scikit-learn</code></pre>
 <p>In this practice, we’ll work with a dataset of mall customers (Sudheer, 2022). You can download the dataset <a href="https://www.kaggle.com/datasets/nelakurthisudheer/mall-customer-segmentation/data">here</a>. This dataset contains some interesting facts about the customers, including their <code>CustomerID</code>, <code>Gender</code>, <code>Age</code>, <code>Annual Income (k$)</code>, and <code>Spending Score (1-100)</code> (a score based on customer behavior and purchasing habits). As the data scientist for the company, your task today is to identify distinct customer profiles via <em>K-means clustering</em>, so that the mall can make wiser decisions about which products to offer and which ads to display for the right customers.</p>
 <p>After downloading the dataset <code>Mall_Customers.csv</code> into the current directory, we’ll load the data and clean it up a bit, such as removing any irrelevant properties for clustering.</p>
-<div id="b8c38c3e" class="cell" data-execution_count="1">
+<div id="964dc775" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
@@ -255,7 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>It looks like our data still needs a little makeover. Some columns contain text, while others have numeric values with different ranges. This can make it tricky when calculating distances for clustering. To resolve this, we’ll need to encode the text data and scale the numeric data so that everything is on the same level before clustering.</p>
-<div id="6682c31d" class="cell" data-execution_count="2">
+<div id="5f80e606" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder, StandardScaler</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>label_encoder <span class="op">=</span> LabelEncoder()</span>
@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Finally, We can start with K-means! Keep the basic steps in mind as we loop through different K values and use the elbow method to find the best K. Let’s get clustering!</p>
-<div id="b59415e7" class="cell" data-execution_count="3">
+<div id="6c0f9e8b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the data into a format suitable for clustering</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> final_data.values</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -309,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>You’ll probably see that <code>K=20</code> gives the smallest SSE, but remember, too many clusters might make the results meaningless! So instead of picking the K that gives the smallest error, we might go with <code>K=6</code>, where the error still decreases but the rate of improvement slows down a lot.</p>
 <p>And here it is, the moment of truth. Let’s see how our clustering results look with <code>K=6</code> in 3D!</p>
-<div id="de8ffee5" class="cell" data-execution_count="4">
+<div id="6ea05712" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit KMeans with K=6</span></span>

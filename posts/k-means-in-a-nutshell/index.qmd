@@ -2,7 +2,7 @@
 title: "K-means clustering in a nutshell"
 author: "Archer Liu"
 date: "2025-01-18"
-categories: [news, code, analysis]
+categories: [tutorial, code, analysis]
 image: "k-means_fun_example.png"
 ---
 
