@@ -8,7 +8,7 @@ image: "k-means_fun_example.png"
 
 Have you ever wondered how Netflix seems to know exactly what show you'll love next? Or how Amazon always recommends products you didn't even realize you needed until it pops up on your home page? How do they get so smart and know you so well?
 
-![Netflix's intelligent recommendations](netflix_recommendation.png)
+![Netflix's intelligent recommendations](netflix_recommendation.jpg)
 
 These smart recommendations aren't because your devices are eavesdropping on you...well, maybe they do. But! They're actually powered by amazing data science techniques like **K-means clustering**!
 
