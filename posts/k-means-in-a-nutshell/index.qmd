@@ -24,7 +24,7 @@ First, what is **clustering**? According to wikipedia, it is the process of divi
 
 The **K-means clustering** is one of the most used clustering algorithms. The **"K"** stands for the number of groups you choose. **"Means"** comes from finding the average (or center) of each group. So basically, **K-means clustering** groups data into K clusters by assigning each point to the closest center, using straight-line distance between the point and the center. Then, it recalculate the center of each group. The new center is the average of all the points in that group. The process keeps repeating until all the centers and groups are as stable as possible. Easy peasy right?
 
-![K-means clustering precedures](k-means_clustering_procedures.png)
+![K-means clustering procedures](k-means_clustering_procedures.png)
 
 However, there's one more challenge: choosing the right **K**. If you select too few groups, the groups may be too broad; if you pick too many, the groups may become overly specific. So, how do we find the best number? This is where the **Elbow Method** comes to the rescue!
 
