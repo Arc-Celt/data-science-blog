@@ -1,0 +1,14 @@
+---
+title: "Welcome To My Blog"
+author: "Archer Liu"
+date: "2025-01-17"
+categories: [news]
+---
+
+# Welcome to My Blog!
+
+Hello! This is Archer Liu, and welcome to my blog!
+
+![Thumbnail](thumbnail.jpg)
+
+This is where I'll be posting updates on everything from personal reflections to the latest news and projects I'm working on. Stay tuned for more updates!
