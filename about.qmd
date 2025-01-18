@@ -5,14 +5,14 @@ about:
   template: jolla
   links:
     - icon: twitter
-      text: Twitter
-      href: https://twitter.com
+      text: X
+      href: https://x.com/celt_313
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://www.linkedin.com/in/archer-liu-b31b69200/
     - icon: github
       text: Github
-      href: https://github.com
+      href: https://github.com/Arc-Celt
 
 ---
 

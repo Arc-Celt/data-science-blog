@@ -4,14 +4,14 @@
     "href": "posts/welcome/index.html",
     "title": "Welcome To My Blog",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts.\nArcher was here"
+    "text": "Welcome to My Blog!\nHello! This is Archer Liu, and welcome to my blog!\n\n\n\nThumbnail\n\n\nThis is where I’ll be posting updates on everything from personal reflections to the latest news and projects I’m working on. Stay tuned for more updates!"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Archer’s Data Science Blog",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 17, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 14, 2025\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "K-means clustering in a nutshell\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 17, 2025\n\n\nArcher Liu\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 17, 2025\n\n\nArcher Liu\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -21,10 +21,24 @@
     "text": "About this blog"
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
+    "objectID": "posts/k-means-in-a-nutshell/index.html",
+    "href": "posts/k-means-in-a-nutshell/index.html",
+    "title": "K-means clustering in a nutshell",
     "section": "",
-    "text": "This is a post with executable code."
+    "text": "Have you ever wondered how Netflix seems to know exactly what show you’ll love next? Or how Amazon always recommends products you didn’t even realize you needed until it pops up on your home page? How do they get so smart and know you so well?\nThese smart recommendations aren’t because your phones are eavesdropping on you…well, maybe they do. But! They’re actually powered by amazing data science techniques like K-means clustering!\nIn this tutorial, we’ll introduce the magic of K-means clustering in a nutshell, exploring how it works and how it can help you play around with everyday data you’re interested in, from analyzing social media trends, to enhancing your learning projects. (Or just for fun!)"
+  },
+  {
+    "objectID": "posts/k-means-in-a-nutshell/index.html#so-what-is-k-means-clustering",
+    "href": "posts/k-means-in-a-nutshell/index.html#so-what-is-k-means-clustering",
+    "title": "K-means clustering in a nutshell",
+    "section": "So, what is K-means clustering?",
+    "text": "So, what is K-means clustering?\nBefore diving into writing fancy code to explore our example dataset, let’s familiarize ourselves with some key terminology.\nFirst, what is clustering? According to wikipedia, it is the process of dividing a set of objects into groups (called clusters), where objects within the same group are more similar to each other than to objects in other groups (Wikipedia, 2025). Just as people naturally seek out others with shared interests and form small social circles, clustering algorithms group data points based on their shared features.\n\n\n\nDifferent animals can be clustered based on their features, and probably, different memes!\n\n\nThe K-means clustering is one of the most used clustering algorithms. The “K” stands for the number of groups you choose. “Means” comes from finding the average (or center) of each group. So basically, K-means clustering groups data into K clusters, making sure each item is as close as possible to the center of its group. The process keeps repeating until all the groups are as well-organized as possible. Easy peasy right?\n\n\n\nK-means clustering precedures"
+  },
+  {
+    "objectID": "posts/k-means-in-a-nutshell/index.html#references",
+    "href": "posts/k-means-in-a-nutshell/index.html#references",
+    "title": "K-means clustering in a nutshell",
+    "section": "References",
+    "text": "References\n\nWikipedia contributors. 2025. “Cluster Analysis.” Wikipedia. Retrieved (https://en.wikipedia.org/wiki/Cluster_analysis)."
   }
 ]

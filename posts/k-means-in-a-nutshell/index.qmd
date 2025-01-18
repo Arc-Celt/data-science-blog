@@ -1,0 +1,32 @@
+---
+title: "K-means clustering in a nutshell"
+author: "Archer Liu"
+date: "2025-01-17"
+categories: [news, code, analysis]
+image: "k-means_fun_example.png"
+---
+
+Have you ever wondered how Netflix seems to know exactly what show you'll love next? Or how Amazon always recommends products you didn't even realize you needed until it pops up on your home page? How do they get so smart and know you so well?
+
+![Netflix's intelligent recommendations](netflix_recommendation.png)
+
+These smart recommendations aren't because your phones are eavesdropping on you...well, maybe they do. But! They're actually powered by amazing data science techniques like **K-means clustering**!
+
+In this tutorial, we'll introduce the magic of K-means clustering in a nutshell, exploring how it works and how it can help you play around with everyday data you're interested in, from analyzing social media trends, to enhancing your learning projects. (Or just for fun!)
+
+## So, what is K-means clustering?
+
+Before diving into writing fancy code to explore our example dataset, let's familiarize ourselves with some key terminology. 
+
+First, what is **clustering**? According to wikipedia, it is the process of dividing a set of objects into groups (called clusters), where objects within the same group are more similar to each other than to objects in other groups (Wikipedia, 2025). Just as people naturally seek out others with shared interests and form small social circles, clustering algorithms group data points based on their shared features. 
+
+![Different animals can be clustered based on their features, and probably, different memes!](k-means_fun_example.png)
+
+The **K-means clustering** is one of the most used clustering algorithms. The **"K"** stands for the number of groups you choose. **"Means"** comes from finding the average (or center) of each group. So basically, **K-means clustering** groups data into K clusters, making sure each item is as close as possible to the center of its group. The process keeps repeating until all the groups are as well-organized as possible. Easy peasy right?
+
+![K-means clustering precedures](k-means_clustering_procedures.png)
+
+## References
+
+- Wikipedia contributors. 2025. "Cluster Analysis." Wikipedia. Retrieved (https://en.wikipedia.org/wiki/Cluster_analysis).
+
